@@ -18,9 +18,6 @@ env/
 __pycache__/
 *.py[cod]
 *$py.class
-error_log.txt
-*.txt
-
 # OS
 .DS_Store
 Thumbs.db
