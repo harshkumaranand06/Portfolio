@@ -1,0 +1,23 @@
+from fastapi import APIRouter, HTTPException
+from models.schemas import ChatRequest, ChatResponse
+from services.ai_service import get_ai_response
+from database.supabase_db import get_supabase
+import json
+
+router = APIRouter()
+
+@router.post("/", response_model=ChatResponse)
+async def chat(request: ChatRequest):
+    supabase = get_supabase()
+    # Fetch resume data from Supabase
+    response = supabase.table("resume").select("*").eq("type", "main").single().execute()
+    
+    if not response.data:
+        resume_context = "No resume data available yet."
+    else:
+        resume_data = response.data
+        # Context for the AI
+        resume_context = json.dumps(resume_data, indent=2)
+    
+    reply = await get_ai_response(request.message, resume_context)
+    return ChatResponse(reply=reply)

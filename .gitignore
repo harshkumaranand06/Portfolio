@@ -1,0 +1,26 @@
+# 3D Portfolio Root Gitignore
+
+# Node
+node_modules/
+dist/
+build/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python
+venv/
+.venv/
+env/
+.env/
+__pycache__/
+*.py[cod]
+*$py.class
+error_log.txt
+*.txt
+
+# OS
+.DS_Store
+Thumbs.db
