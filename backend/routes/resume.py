@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from backend.models.schemas import ResumeData
-from backend.database.supabase_db import get_supabase
+from models.schemas import ResumeData
+from database.supabase_db import get_supabase
 
 router = APIRouter()
 

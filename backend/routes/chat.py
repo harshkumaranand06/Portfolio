@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
-from backend.models.schemas import ChatRequest, ChatResponse
-from backend.services.ai_service import get_ai_response
-from backend.database.supabase_db import get_supabase
+from models.schemas import ChatRequest, ChatResponse
+from services.ai_service import get_ai_response
+from database.supabase_db import get_supabase
 import json
 
 router = APIRouter()

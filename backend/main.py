@@ -1,11 +1,19 @@
+import sys
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from backend.routes import chat, resume
-from backend.database.supabase_db import init_db
-import os
 import uvicorn
 from dotenv import load_dotenv
+
+# Path hack to allow running from within the backend folder or from root
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+if parent_dir not in sys.path:
+    sys.path.append(parent_dir)
+
+from routes import chat, resume
+from database.supabase_db import init_db
 
 load_dotenv()
 
