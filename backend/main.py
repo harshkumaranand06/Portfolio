@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from routes import chat, resume
-from database.supabase_db import init_db
+from backend.routes import chat, resume
+from backend.database.supabase_db import init_db
 import os
 import uvicorn
 from dotenv import load_dotenv

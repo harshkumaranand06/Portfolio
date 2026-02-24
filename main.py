@@ -1,23 +1,27 @@
-import sys
 import os
+import sys
 from dotenv import load_dotenv
 
-# Ensure environment variables are loaded from the root
+# Load env from root
 load_dotenv()
 
-# Add the backend directory to sys.path to allow imports to work correctly on Render
-backend_path = os.path.join(os.path.dirname(__file__), 'backend')
-if backend_path not in sys.path:
-    sys.path.append(backend_path)
+# Ensure the root is in sys.path
+root_dir = os.path.dirname(os.path.abspath(__file__))
+if root_dir not in sys.path:
+    sys.path.append(root_dir)
 
-# Import the actual FastAPI app from the backend folder
+# Import app using absolute package path
 try:
     from backend.main import app
-except ImportError:
-    # Fallback for if it's already in the path
+except ImportError as e:
+    print(f"Error importing backend.main: {e}")
+    # Fallback to absolute relative import if necessary
+    sys.path.append(os.path.join(root_dir, 'backend'))
     from main import app
 
 if __name__ == "__main__":
     import uvicorn
+    # Use environment PORT for Render
     port = int(os.getenv("PORT", 8005))
+    print(f"Production Entry Point: Starting server on port {port}...")
     uvicorn.run(app, host="0.0.0.0", port=port)
